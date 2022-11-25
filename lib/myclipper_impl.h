@@ -16,7 +16,9 @@ namespace gr {
     class myclipper_impl : public myclipper
     {
      private:
-      // Nothing to declare in this block.
+        float d_clip; //its a good coding practice to name this in a way that you can
+                      //differentiate private from public variables
+                      // gnuradio's name convention for private variables is d_myvar, cpp uses m_myvar
 
      public:
       myclipper_impl(float clipper);

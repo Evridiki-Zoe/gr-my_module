@@ -11,9 +11,7 @@
 namespace gr {
   namespace my_module {
 
-    #pragma message("set the following appropriately and remove this warning")
     using input_type = float;
-    #pragma message("set the following appropriately and remove this warning")
     using output_type = float;
     myclipper::sptr
     myclipper::make(float clipper)
@@ -28,9 +26,18 @@ namespace gr {
      */
     myclipper_impl::myclipper_impl(float clipper)
       : gr::sync_block("myclipper",
+              /* The block has exactly one float input */
               gr::io_signature::make(1 /* min inputs */, 1 /* max inputs */, sizeof(input_type)),
+              /* The block has exactly one float output */
               gr::io_signature::make(1 /* min outputs */, 1 /*max outputs */, sizeof(output_type)))
-    {}
+              /* Initialize private members */
+                    d_clip(clipper)
+    {
+        if(d_clip < 0.0f){
+                throw std::invalid_argument("clipper should be positive!");
+        }
+
+    }
 
     /*
      * Our virtual destructor.
@@ -44,11 +51,18 @@ namespace gr {
         gr_vector_const_void_star &input_items,
         gr_vector_void_star &output_items)
     {
-      auto in = static_cast<const input_type*>(input_items[0]);
-      auto out = static_cast<output_type*>(output_items[0]);
+      const float *in = (const input_type*)(input_items[0]);
+      float out = (output_type*)(output_items[0]);
 
-      #pragma message("Implement the signal processing in your block and remove this warning")
       // Do <+signal processing+>
+      for(int i = 0; i < noutput_items; i++){
+        if(in[i] > d_clip)
+          out[i] = d_clip;
+        else if(in[i] < -d_clip)
+          out[i] = -d_clip;
+        else
+          out[i] = in[i];
+      }
 
       // Tell runtime system how many output items we produced.
       return noutput_items;

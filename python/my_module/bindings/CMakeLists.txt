@@ -29,7 +29,7 @@ include(GrPybind)
 ########################################################################
 
 list(APPEND my_module_python_files
-    python_bindings.cc)
+    myclipper_python.cc python_bindings.cc)
 
 GR_PYBIND_MAKE_OOT(my_module
    ../../..

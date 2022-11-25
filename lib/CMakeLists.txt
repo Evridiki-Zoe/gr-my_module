@@ -12,6 +12,7 @@
 include(GrPlatform) #define LIB_SUFFIX
 
 list(APPEND my_module_sources
+    myclipper_impl.cc
 )
 
 set(my_module_sources "${my_module_sources}" PARENT_SCOPE)

@@ -11,5 +11,5 @@
 ########################################################################
 install(FILES
     api.h
-    DESTINATION include/gnuradio/my_module
+    myclipper.h DESTINATION include/gnuradio/my_module
 )

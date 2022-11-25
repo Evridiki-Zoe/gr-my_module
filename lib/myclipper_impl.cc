@@ -29,7 +29,7 @@ namespace gr {
               /* The block has exactly one float input */
               gr::io_signature::make(1 /* min inputs */, 1 /* max inputs */, sizeof(input_type)),
               /* The block has exactly one float output */
-              gr::io_signature::make(1 /* min outputs */, 1 /*max outputs */, sizeof(output_type)))
+              gr::io_signature::make(1 /* min outputs */, 1 /*max outputs */, sizeof(output_type))),
               /* Initialize private members */
                     d_clip(clipper)
     {
@@ -52,7 +52,7 @@ namespace gr {
         gr_vector_void_star &output_items)
     {
       const float *in = (const input_type*)(input_items[0]);
-      float out = (output_type*)(output_items[0]);
+      float *out = (output_type*)(output_items[0]);
 
       // Do <+signal processing+>
       for(int i = 0; i < noutput_items; i++){
